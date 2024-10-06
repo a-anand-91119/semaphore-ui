@@ -18,7 +18,7 @@ variables:
 semaphore_build:
   stage: build
   image:
-    name: "docker"
+    name: "ubuntu"
   services:
     - name: docker:dind
       alias: buildcontainer
