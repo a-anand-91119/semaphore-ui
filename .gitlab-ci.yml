@@ -16,7 +16,7 @@ variables:
   GOLINTER_VERSION: v1.57.2
 
 before_script:
-  - apk update -y
+#  - apk update -y
   - apk add -y curl npm golang
 
 deps:tools:
