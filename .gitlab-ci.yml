@@ -25,7 +25,7 @@ semaphore_build:
       entrypoint: [ "dockerd-entrypoint.sh", "--tls=false" ]
   before_script:
     - |
-      echo $DOCKER_REGISTRY_PASSWORD | winpty docker login -u $DOCKER_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
+      echo "${$DOCKER_REGISTRY_PASSWORD:?}" | docker login --password-stdin -u "${$DOCKER_REGISTRY_USER:?}" -- "${$DOCKER_REGISTRY:?}"
   script:
     - apt-get update -y
     - apt-get install -y curl npm golang
