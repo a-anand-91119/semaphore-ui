@@ -7,8 +7,13 @@ stages:
   - release
   - docker
 
-image: ubuntu
-
+default:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  before_script:
+    - docker info
+    -
 variables:
   DOCKER_ORG: aanand91119
   DOCKER_SERVER: semaphore
@@ -22,6 +27,7 @@ before_script:
   - apt-get install -y curl npm golang
 
 semaphore_build:
+  stage: build
   before_script:
     - |
       echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
