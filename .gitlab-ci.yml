@@ -13,6 +13,8 @@ default:
     - docker:24.0.5-dind
   before_script:
     - docker info
+    - apt-get update -y
+    - apt-get install -y curl npm golang
 
 variables:
   DOCKER_ORG: aanand91119
@@ -21,10 +23,6 @@ variables:
   SWAGGER_VERSION: v0.30.5
   GORELEASER_VERSION: v1.25.1
   GOLINTER_VERSION: v1.57.2
-
-before_script:
-  - apt-get update -y
-  - apt-get install -y curl npm golang
 
 semaphore_build:
   stage: build
