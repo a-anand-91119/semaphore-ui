@@ -17,7 +17,7 @@ variables:
 
 before_script:
 #  - apk update -y
-  - apk add -y curl npm golang
+  - apk add -q curl npm golang
 
 deps:tools:
   stage: deps
