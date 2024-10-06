@@ -7,6 +7,8 @@ stages:
   - release
   - docker
 
+image: ubuntu
+
 variables:
   DOCKER_ORG: aanand91119
   DOCKER_SERVER: semaphore
@@ -16,8 +18,8 @@ variables:
   GOLINTER_VERSION: v1.57.2
 
 before_script:
-#  - apk update -y
-  - apk add -q curl npm golang
+  - apt-get update -y
+  - apt-get install -y curl npm golang
 
 deps:tools:
   stage: deps
