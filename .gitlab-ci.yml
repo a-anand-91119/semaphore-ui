@@ -13,7 +13,7 @@ default:
     - docker:24.0.5-dind
   before_script:
     - docker info
-    -
+
 variables:
   DOCKER_ORG: aanand91119
   DOCKER_SERVER: semaphore
