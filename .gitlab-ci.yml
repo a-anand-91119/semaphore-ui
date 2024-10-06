@@ -7,15 +7,6 @@ stages:
   - release
   - docker
 
-default:
-  image: docker:24.0.5
-  services:
-    - docker:24.0.5-dind
-  before_script:
-    - docker info
-    - apt-get update -y
-    - apt-get install -y curl npm golang
-
 variables:
   DOCKER_ORG: aanand91119
   DOCKER_SERVER: semaphore
@@ -26,6 +17,12 @@ variables:
 
 semaphore_build:
   stage: build
+  image:
+    name: "docker"
+  services:
+    - name: docker:dind
+      alias: buildcontainer
+      entrypoint: [ "dockerd-entrypoint.sh", "--tls=false" ]
   before_script:
     - |
       echo $DOCKER_REGISTRY_PASSWORD | docker login -u $DOCKER_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
@@ -52,6 +49,9 @@ semaphore_build:
     SHA: $(git log --pretty=format:'%h' -n 1)
     VERSION: $CI_COMMIT_REF_NAME
     DATE: $(date +%s)
+    DOCKER_HOST: tcp://buildcontainer:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
   artifacts:
     paths:
       - api/public/
